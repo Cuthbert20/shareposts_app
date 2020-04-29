@@ -6,6 +6,7 @@
  * Bind values
  * Return rows and results
  */
+declare(strict_types = 1);
 class Database{
     private $host = DB_HOST;
     private $user = DB_USER;
@@ -35,7 +36,7 @@ class Database{
     }
 
 //    Prepare statement with query
-    public function query($sql){
+    public function query(string $sql){
         $this->stmt = $this->dbh->prepare($sql);
     }
 

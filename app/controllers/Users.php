@@ -1,5 +1,6 @@
 <?php
     declare(strict_types = 1);
+
     class Users extends Controller{
 
         public function __construct()
@@ -64,7 +65,16 @@
 //                Make sure errors are empty
                 if(empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])){
 //                    Validated
-                    die("SUCCESS");
+//                   Hash the password
+                    $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+//                    Register User with model, will return true or false, using if statement to check
+                    if($this->userModel->register($data)){
+                        redirect('users/login');
+                    }else{
+                        die("Something has gone WRONG!");
+                    }
+
                 }else{
 //                    Load view with errors
                 $this->view('users/register', $data);
