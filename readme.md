@@ -1,0 +1,1 @@
+Simple Social Media Site build using PHP 7 OOP.
