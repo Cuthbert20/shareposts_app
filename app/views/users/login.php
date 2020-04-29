@@ -4,15 +4,15 @@
             <div class="card card-body bg-light mt-5">
                 <h2>Login</h2>
                 <p>Please fill in your credentials to login</p>
-                <form method="POST" action="<?php echo URLROOT; ?>/users/login">
+                <form action="<?php echo URLROOT; ?>/users/login" method="post">
                     <div class="form-group">
                         <label for="email">Email: <sup>*</sup></label>
-                        <input name="email" type="email" value="<?php echo $data['email']; ?>" class="form-control form-control-lg <?php echo (!empty($data['email_err'])) ? 'is_invalid' : ''; ?>">
+                        <input name="email" type="email" value="<?php echo $data['email']; ?>" class="form-control form-control-lg <?php echo (!empty($data['email_err'])) ? 'is-invalid' : ''; ?>">
                         <span class="invalid-feedback"><?php echo $data['email_err']; ?></span>
                     </div>
                     <div class="form-group">
                         <label for="password">Password: <sup>*</sup></label>
-                        <input name="password" type="password" value="<?php echo $data['password']; ?>" class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is_invalid' : ''; ?>">
+                        <input name="password" type="password" value="<?php echo $data['password']; ?>" class="form-control form-control-lg <?php echo (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>">
                         <span class="invalid-feedback"><?php echo $data['password_err']; ?></span>
                     </div>
                     <div class="row">
