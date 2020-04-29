@@ -77,6 +77,36 @@
             if($_SERVER['REQUEST_METHOD'] === 'POST'){
 //                Process the form
 
+//                Sanitize the POST
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+//                Init Data
+                $data = [
+                    'email'=> trim($_POST['email']),
+                    'password'=> trim($_POST['password']),
+                    'email_err'=>'',
+                    'password_err'=>''
+                ];
+
+//                Validate Email
+                if(empty($data['email'])){
+                    $data['email_err'] = "Please enter email";
+                }
+
+//                Validate Password
+                if(empty($data['password'])){
+                    $data['password_err'] = "Please enter password";
+                }
+
+//                Make sure that the errors are empty
+                if(empty($data['email_err']) && $data['password_err']){
+//                    Validated
+                    die('SUCCESS');
+                }else{
+//                    Load view with errors, remember view is a method that is coming from our parent class Controller
+                    $this->view('/users/login', $data);
+                }
+
             }else{
 //                Init Data
                 $data = ['email'=>'','password'=>'','email_err'=>'','password_err'=>'',];
