@@ -1,0 +1,66 @@
+---1.0
+We are using .htaccess in /app  so that we are unable to access the .app folder in the browser.
+
+---1.1
+Because of the following line of code
+RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
+in public/.htaccess
+when pass a url param into our url we don't need knowlmvc/index.php?url=WHATEVER
+instead we can just pass it in as follows knowlmvc/WHATEVER
+
+---2.0
+Side obvious Note. All of our controllers in our controllers dir will be classes.
+
+---3.0
+Good convention to have models className and file name singular ie. Post. While controllers className and file name plural.
+
+--- 4.0
+Notes for using Database class, models/pot.php and accessing values through public/index.php
+
+<?php
+//    This class ie Post is for demo, testing, and how to.
+    class Post{
+        private $db;
+
+        public function __construct(){
+            $this->db = new Database();
+        }
+
+        public function getPosts(){
+            $this->db->query('SELECT * FROM posts');
+
+            return $this->db->resultSet();
+
+        }
+    }
+
+
+Pages.php
+  class Pages extends Controller {
+        public function __construct()
+        {
+            $this->postModel = $this->model('Post');
+        }
+        public function index(){
+
+            $posts = $this->postModel->getPosts();
+
+            $data = ['title'=> 'Welcome', 'posts'=> $posts];
+//            we are passing in an array that we will then have access to in the view ie in the browser
+            $this->view('pages/index', $data);
+
+        }
+        }
+
+public/index.php
+    <!--  FRONT END USES URLROOT, BACKEND USES APPROOT -->
+    <?php require APPROOT . '/views/inc/header.php'; ?>
+
+        <h1><?php echo $data['title']; ?></h1>
+        <ul>
+            <?php foreach($data['posts'] as $post) : ?>
+                <li><?php echo $post->title; ?></li>
+            <?php endforeach; ?>
+        </ul>
+
+    <?php require APPROOT . '/views/inc/footer.php'; ?>
