@@ -53,7 +53,7 @@
                     $data['password_err'] = "Password must be at least six characters";
                 }
 
-//                Vaidate confirm_password
+//                Validate confirm_password
                 if(empty($data['confirm_password'])){
                     $data['confirm_password_err'] = "Please enter password";
                 }else{
@@ -70,6 +70,7 @@
 
 //                    Register User with model, will return true or false, using if statement to check
                     if($this->userModel->register($data)){
+                        flash('register_success', "You are registered can log in");
                         redirect('users/login');
                     }else{
                         die("Something has gone WRONG!");
